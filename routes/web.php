@@ -18,3 +18,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/test', 'OrderController@test');
+Route::get('/orders/place', 'OrderController@create');
+Route::post('/orders', 'OrderController@store');
