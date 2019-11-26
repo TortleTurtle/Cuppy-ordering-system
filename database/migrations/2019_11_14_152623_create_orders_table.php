@@ -17,11 +17,12 @@ class CreateOrdersTable extends Migration
             $table->bigIncrements('id');
             $table->boolean('clip');
             $table->boolean('engraving');
-            $table->string('front_img');
-            $table->string('back_img');
+            $table->string('front_img')->nullable();
+            $table->string('back_img')->nullable();
             $table->string('location');
             $table->dateTime('ordered_at');
-            $table->dateTime('delivered_at');
+            $table->dateTime('delivered_at')->nullable();
+            $table->text('status');
             $table->unsignedBigInteger('cup_id');
             $table->unsignedBigInteger('owner');
 
