@@ -15,7 +15,7 @@ class Cups extends Migration
     {
         Schema::create('cups', function (Blueprint $table){
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('coffee_ordered')->default(0);
+            $table->unsignedBigInteger('coffee_ordered')->nullable();
             $table->date('created_at');
             $table->unsignedBigInteger('owner');
 
