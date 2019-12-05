@@ -10,12 +10,24 @@ use Carbon\Carbon;
 
 class OrderController extends Controller
 {
-    //create order
+    //show
+    public function show($id){
+        $order = Order::with(['owner' => function ($query){
+            $query->select('id', 'name');
+        }])->where('id', '=', $id)->firstOrFail();
+
+        // return $order;
+        return view('orders/showOrder', [
+            'order' => $order,
+        ]);
+    }
+
+    //create
     public function create(){
         return view('orders/placeOrder');
     }
 
-    //store order
+    //store
     public function store(Request $req){
         $dateTime = Carbon::now();
         //create a cup for the order.
@@ -43,7 +55,7 @@ class OrderController extends Controller
         return "created succesfully!";
     }
 
-    //edit order
+    //edit
     public function edit($id){
         $order = Order::findOrFail($id);
 
@@ -52,7 +64,7 @@ class OrderController extends Controller
         ]);
     }
 
-    //update order
+    //update
     public function update(Request $req ,$id){
 
         //find corresponding order.

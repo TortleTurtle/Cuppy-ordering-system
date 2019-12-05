@@ -22,4 +22,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/orders/place', 'OrderController@create');
 Route::post('/orders', 'OrderController@store');
 Route::get('/orders/edit/{id}', 'OrderController@edit');
+Route::get('/orders/{id}', 'OrderController@show');
 Route::put('/orders/{id}', 'OrderController@update');
