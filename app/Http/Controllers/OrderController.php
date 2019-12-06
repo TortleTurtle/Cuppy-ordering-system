@@ -11,6 +11,16 @@ use Carbon\Carbon;
 
 class OrderController extends Controller
 {
+    //index orders
+    public function index(){
+        $orders = Order::with(['owner' => function ($query){
+            $query->select('id', 'name');
+        }])->get();
+
+//        return $orders;
+        return view('orders/indexOrders', compact('orders'));
+    }
+
     //show
     public function show($id){
          $order = Order::with(['owner' => function ($query){
