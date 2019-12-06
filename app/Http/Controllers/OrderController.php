@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use App\Order;
+use App\User;
 use App\Cup;
 use Carbon\Carbon;
 
@@ -12,14 +13,11 @@ class OrderController extends Controller
 {
     //show
     public function show($id){
-        $order = Order::with(['owner' => function ($query){
-            $query->select('id', 'name');
-        }])->where('id', '=', $id)->firstOrFail();
+         $order = Order::with(['owner' => function ($query){
+             $query->select('id', 'name');
+         }])->where('id', '=', $id)->firstOrFail();
 
-        // return $order;
-        return view('orders/showOrder', [
-            'order' => $order,
-        ]);
+        return view('orders/showOrder', compact('order'));
     }
 
     //create
@@ -34,7 +32,7 @@ class OrderController extends Controller
         $cup = new Cup;
         $cup->coffee_ordered = 0;
         $cup->created_at = $dateTime;
-        $cup->owner = Auth::user()->id;
+        $cup->user_id = Auth::user()->id;
         $cup->save();
 
         //create a order
@@ -46,9 +44,9 @@ class OrderController extends Controller
         $order->ordered_at = $dateTime;
         $order->location = $req->location;
         $order->status = "not payed";
-        //give the cup and owner id
+        //give the cup and user_id
         $order->cup_id = $cup->id;
-        $order->owner = Auth::user()->id;
+        $order->user_id = Auth::user()->id;
 
         $order->save();
 
@@ -77,7 +75,7 @@ class OrderController extends Controller
         $order->back_img = $req->back_img;
         $order->location = $req->location;
         $order->cup_id = $req->cup_id;
-        $order->owner = $req->owner;
+        $order->user_id = $req->user_id;
         
         $order->save();
 

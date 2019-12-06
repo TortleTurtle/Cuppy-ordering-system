@@ -17,9 +17,9 @@ class Cups extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('coffee_ordered')->nullable();
             $table->date('created_at');
-            $table->unsignedBigInteger('owner');
+            $table->unsignedBigInteger('user_id');
 
-            $table->foreign('owner')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -31,7 +31,7 @@ class Cups extends Migration
     public function down()
     {
         Schema::table('cups', function (Blueprint $table){
-            $table->dropForeign('cups_owner_foreign');
+            $table->dropForeign('cups_user_id_foreign');
         });
         Schema::dropIfExists('cups');
     }
