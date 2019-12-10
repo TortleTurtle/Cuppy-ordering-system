@@ -28,3 +28,4 @@ Route::put('/orders/{id}', 'OrderController@update');
 
 //cup
 Route::get('/cup', 'CupController@index');
+Route::get('/cup/create', 'CupController@store');

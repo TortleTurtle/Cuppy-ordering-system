@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Cup;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class CupController extends Controller
@@ -25,9 +26,21 @@ class CupController extends Controller
     public function index()
     {
        // $posts = post::orderBy('created_at', 'desc')->get();
-        $cup = cup::orderby('id', 'desc')->get();
-        $users = user::orderby('id', 'desc')->get();
-        dd($cup);
-        return view('cup.index')->with('cup', $cup);
+        $cup = cup::with(['owner' => function ($query){
+        $query->select('id', 'name');
+    }])->get();
+
+        return view('cup.index', compact('cup'));
+    }
+
+    //store
+    public function store(Request $request){
+        cup::create([
+            'coffee_ordered' => 0,
+            'user_id' => (auth()->user()->id),
+            'created_at'=> Carbon::now()
+        ]);
+
+        return redirect('/cup')->with('Succes', 'Cup account linked');
     }
 }
