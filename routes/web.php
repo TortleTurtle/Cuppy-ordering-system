@@ -33,3 +33,8 @@ Route::group(['prefix' => 'orders', 'as' => 'orders.'], function (){
     });
 });
 
+Route::group(['prefix' => 'users', 'as' => 'users.'], function (){
+
+    Route::get('/', 'UserController@index')->name('index');
+});
+
