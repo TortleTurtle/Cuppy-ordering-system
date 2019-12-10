@@ -24,10 +24,10 @@ class CreateOrdersTable extends Migration
             $table->dateTime('delivered_at')->nullable();
             $table->text('status');
             $table->unsignedBigInteger('cup_id');
-            $table->unsignedBigInteger('owner');
+            $table->unsignedBigInteger('user_id');
 
             $table->foreign('cup_id')->references('id')->on('cups');
-            $table->foreign('owner')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -40,7 +40,7 @@ class CreateOrdersTable extends Migration
     {   
         Schema::table('users', function (Blueprint $table) {
             $table->dropForeign('orders_cup_id_foreign');
-            $table->dropForeign('orders_owner_foreign');
+            $table->dropForeign('orders_user_id_foreign');
         });
         Schema::dropIfExists('orders');
     }
