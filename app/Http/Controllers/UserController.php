@@ -15,7 +15,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::select('id', 'name', 'email')->withCount(['cups', 'orders'])->get();
-//        dd($users);
+
         return view('users.index', compact('users'));
     }
 
@@ -48,7 +48,10 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::with('cups', 'orders')->findOrFail($id);
+//        dd($user);
+
+        return view('users.show', compact('user'));
     }
 
     /**
