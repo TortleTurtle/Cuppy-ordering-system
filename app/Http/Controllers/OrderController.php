@@ -60,7 +60,7 @@ class OrderController extends Controller
 
         $order->save();
 
-        return "created succesfully!";
+        return redirect()->route('orders.show', ['id' => $order->id]);
     }
 
     //edit
@@ -85,10 +85,23 @@ class OrderController extends Controller
         $order->back_img = $req->back_img;
         $order->location = $req->location;
         $order->cup_id = $req->cup_id;
+        $order->status = $req->status;
         $order->user_id = $req->user_id;
         
         $order->save();
 
-        return "updated succesfully!";
+        return redirect()->route('orders.show', ['id' => $id]);
+    }
+
+    //delete
+    public function delete($id){
+        $deletedOrder = Order::destroy($id);
+
+        if ($deletedOrder){
+            return redirect()->route('orders.index');
+        }
+        else{
+            return "Oops something went wrong";
+        }
     }
 }
