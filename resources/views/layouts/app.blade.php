@@ -54,6 +54,10 @@
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
+                                <div>
+                                    <a class="dropdown-item" href="/cup">cup</a>
+                                </div>
+
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
