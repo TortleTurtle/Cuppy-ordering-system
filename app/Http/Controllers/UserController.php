@@ -40,7 +40,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::findOrFail($id);
+        $user = User::select('id', 'name', 'email')->findOrFail($id);
 
         return view('users.edit', compact('user'));
     }
@@ -61,7 +61,7 @@ class UserController extends Controller
 
         $user->save();
 
-        return route('users.show', ['id' => $id]);
+        return redirect()->route('users.show', ['id' => $id]);
     }
 
     /**
