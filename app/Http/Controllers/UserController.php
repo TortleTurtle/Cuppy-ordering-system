@@ -20,27 +20,6 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -49,7 +28,6 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::with('cups', 'orders')->findOrFail($id);
-//        dd($user);
 
         return view('users.show', compact('user'));
     }
@@ -62,7 +40,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        return view('users.edit', compact('user.update', ));
     }
 
     /**
@@ -72,9 +52,16 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $req, $id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        $user->name = $req->name;
+        $user->email = $req->email;
+
+        $user->save();
+
+        return route('users.show', ['id' => $id]);
     }
 
     /**

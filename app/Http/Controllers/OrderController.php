@@ -27,12 +27,12 @@ class OrderController extends Controller
              $query->select('id', 'name');
          }])->where('id', '=', $id)->firstOrFail();
 
-        return view('orders/showOrder', compact('order'));
+        return view('orders/show', compact('order'));
     }
 
     //create
     public function create(){
-        return view('orders/placeOrder');
+        return view('orders/place');
     }
 
     //store
@@ -67,7 +67,7 @@ class OrderController extends Controller
     public function edit($id){
         $order = Order::findOrFail($id);
 
-        return view('orders.editOrder', [
+        return view('orders.edit', [
             'order' => $order,
         ]);
     }

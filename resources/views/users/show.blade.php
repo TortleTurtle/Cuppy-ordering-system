@@ -9,6 +9,7 @@
                 <li>Email: {{$user->email}}</li>
                 <li>Joined: {{$user->created_at}}</li>
             </ul>
+            <a class="btn btn-primary" href="{{route('users.edit', ['id' => $user->id])}}">Edit</a>
         </div>
     </div>
     <div class="row">

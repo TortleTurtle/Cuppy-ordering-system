@@ -19,7 +19,7 @@
                     <td scope="col">{{$user->email}}</td>
                     <td scope="col">{{$user->cups_count}}</td>
                     <td scope="col">{{$user->orders_count}}</td>
-                    <td scope="col"><a href="" class="btn btn-secondary">Details</a></td>
+                    <td scope="col"><a href="{{route('users.show', ['id' => $user->id])}}" class="btn btn-secondary">Details</a></td>
                 </tr>
             @endforeach
             </tbody>
