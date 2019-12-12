@@ -3,7 +3,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-7" align="center">
-            <form target="{{route('users', ['id' => $id])}}" method="post">
+            <form target="{{route('users.update', ['id' => $user->id])}}" method="post">
                 @method("PUT")
                 @csrf
                 <div class="form-row">
@@ -20,3 +20,4 @@
             </form>
         </div>
     </div>
+@endsection

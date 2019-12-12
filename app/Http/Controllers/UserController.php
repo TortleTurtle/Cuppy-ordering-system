@@ -42,7 +42,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
-        return view('users.edit', compact('user.update', ));
+        return view('users.edit', compact('user'));
     }
 
     /**
