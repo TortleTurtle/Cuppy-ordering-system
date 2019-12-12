@@ -16,7 +16,7 @@ class CupController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'show']]);
+        $this->middleware('auth');
     }
     /**
      * Display a listing of the resource.
@@ -28,7 +28,8 @@ class CupController extends Controller
        // $posts = post::orderBy('created_at', 'desc')->get();
         $cup = cup::with(['owner' => function ($query){
         $query->select('id', 'name');
-    }])->get();
+    }])->where('user_id', '=', (auth()->user()->id) )->get();
+//        dd($cup);
 
         return view('cup.index', compact('cup'));
     }
@@ -42,5 +43,56 @@ class CupController extends Controller
         ]);
 
         return redirect('/cup')->with('Succes', 'Cup account linked');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function Plus_coffee(Request $request, $id)
+    {
+        $Coffee = cup::find($id);
+        $Coffee->coffee_ordered = $Coffee->coffee_ordered+1;
+        $Coffee->save();
+
+        return redirect('/cup')->with('success', 'Post Updated');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function min_coffee(Request $request, $id)
+    {
+        $Coffee = cup::find($id);
+        $Coffee->coffee_ordered = $Coffee->coffee_ordered-1;
+        $Coffee->save();
+
+        return redirect('/cup')->with('success', 'Post Updated');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $cup = cup::find($id);
+
+        //Check for correct user
+        if(auth()->user()->id !==$cup->user_id){
+            return redirect('posts')->with('error', 'Unauthorized page');
+        }
+
+        $cup->delete();
+        return redirect('/cup')->with('success', 'cup Removed');
     }
 }

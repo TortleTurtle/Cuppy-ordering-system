@@ -29,3 +29,6 @@ Route::put('/orders/{id}', 'OrderController@update');
 //cup
 Route::get('/cup', 'CupController@index');
 Route::get('/cup/create', 'CupController@store');
+Route::get('/cup/delete/{id}', 'CupController@destroy');
+Route::get('/cup/plus_coffee/{id}', 'CupController@plus_coffee');
+Route::get('/cup/min_coffee/{id}', 'CupController@min_coffee');
