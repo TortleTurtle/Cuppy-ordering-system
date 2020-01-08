@@ -18,6 +18,7 @@ class Cups extends Migration
             $table->unsignedBigInteger('coffee_ordered')->nullable();
             $table->date('created_at');
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('points')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users');
         });

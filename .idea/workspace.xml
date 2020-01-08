@@ -112,7 +112,7 @@
   <component name="PropertiesComponent">
     <property name="TODO_SCOPE" value="All Places" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="D:/xampp/htdocs/test2/blog" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -157,7 +157,11 @@
       <workItem from="1575553804215" duration="2762000" />
       <workItem from="1575556784232" duration="4569000" />
       <workItem from="1575630519180" duration="1956000" />
-      <workItem from="1575978414130" duration="13669000" />
+      <workItem from="1575978414130" duration="14599000" />
+      <workItem from="1576323565747" duration="100000" />
+      <workItem from="1578400641013" duration="5650000" />
+      <workItem from="1578410031215" duration="749000" />
+      <workItem from="1578476469222" duration="601000" />
     </task>
     <servers />
   </component>

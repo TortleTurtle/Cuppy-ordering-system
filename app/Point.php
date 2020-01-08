@@ -4,18 +4,17 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Cup extends Model
+class Point extends Model
 {
     //table name
-    protected $table = 'cups';
+    protected $table = 'points';
     //primary key
     public $primaryKey = 'id';
     //Timestamps
     public $timestamps = false;
 
     protected $fillable = [
-        'coffee_ordered','user_id','created_at'
-
+        'points','created_at','user_id'
     ];
     //relationships
     public function owner(){

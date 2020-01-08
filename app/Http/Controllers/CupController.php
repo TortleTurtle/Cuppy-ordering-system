@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Cup;
+use App\Point;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -38,10 +39,10 @@ class CupController extends Controller
     public function store(Request $request){
         cup::create([
             'coffee_ordered' => 0,
+            'points'=> 0,
             'user_id' => (auth()->user()->id),
             'created_at'=> Carbon::now()
         ]);
-
         return redirect('/cup')->with('Succes', 'Cup account linked');
     }
 
@@ -56,7 +57,12 @@ class CupController extends Controller
     {
         $Coffee = cup::find($id);
         $Coffee->coffee_ordered = $Coffee->coffee_ordered+1;
+        $Coffee->points = $Coffee->points+1;
+          if ($Coffee->points>4){
+            $Coffee->points = 0;
+            }
         $Coffee->save();
+
 
         return redirect('/cup')->with('success', 'Post Updated');
     }
@@ -72,6 +78,13 @@ class CupController extends Controller
     {
         $Coffee = cup::find($id);
         $Coffee->coffee_ordered = $Coffee->coffee_ordered-1;
+        $Coffee->points = $Coffee->points-1;
+        if($Coffee->points<0){
+            $Coffee->points = 0;
+        }
+        if($Coffee->coffee_ordered<0){
+            $Coffee->coffee_ordered = 0;
+        }
         $Coffee->save();
 
         return redirect('/cup')->with('success', 'Post Updated');
