@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -31,6 +30,3 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 const app = new Vue({
     el: '#app',
 });
-=======
-require('./bootstrap');
->>>>>>> 89e28149abfe131eeec45960d7436a8e4d2de574
