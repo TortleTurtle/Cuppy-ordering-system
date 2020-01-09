@@ -10,8 +10,10 @@ class Order extends Model
         'clip', 'engrave', 'front_img', 'back_img', 'location'
     ];
 
+    public $timestamps = false;
+
     //relationships
     public function owner(){
-        return $this->belongsTo('App\User', 'owner');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
