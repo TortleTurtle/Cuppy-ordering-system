@@ -44,3 +44,4 @@ Route::group(['prefix' => 'users', 'as' => 'users.'], function (){
     });
 });
 
+Route::resource('newcuppy', 'UploadImageController');
