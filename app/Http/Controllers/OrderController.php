@@ -17,7 +17,6 @@ class OrderController extends Controller
             $query->select('id', 'name');
         }])->get();
 
-//        return $orders;
         return view('orders/index', compact('orders'));
     }
 
