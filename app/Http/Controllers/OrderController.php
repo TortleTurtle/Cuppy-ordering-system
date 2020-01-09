@@ -18,7 +18,7 @@ class OrderController extends Controller
         }])->get();
 
 //        return $orders;
-        return view('orders/indexOrders', compact('orders'));
+        return view('orders/index', compact('orders'));
     }
 
     //show
