@@ -12,11 +12,15 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $req)
     {
-        $users = User::select('id', 'name', 'email')->withCount(['cups', 'orders'])->get();
-
-        return view('users.index', compact('users'));
+        if(in_array("read", $req->get('permissions'))){
+            $users = User::select('id', 'name', 'email')->withCount(['cups', 'orders'])->get();
+    
+            return view('users.index', compact('users'));
+        } else {
+            return abort(403, "Sorry you do not have the right permissions");
+        }
     }
 
     /**
@@ -25,11 +29,15 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Request $req)
     {
-        $user = User::with('cups', 'orders')->findOrFail($id);
-
-        return view('users.show', compact('user'));
+        if(in_array("read", $req->get('permissions'))){
+            $user = User::with('cups', 'orders')->findOrFail($id);
+    
+            return view('users.show', compact('user'));
+        } else {
+            return abort(403, "Sorry you do not have the right permissions");
+        }
     }
 
     /**
@@ -38,11 +46,15 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, Request $req)
     {
-        $user = User::select('id', 'name', 'email')->findOrFail($id);
-
-        return view('users.edit', compact('user'));
+        if(in_array("write", $req->get('permissions'))){
+            $user = User::select('id', 'name', 'email')->findOrFail($id);
+    
+            return view('users.edit', compact('user'));
+        } else {
+            return abort(403, "Sorry you do not have the right permissions");
+        }
     }
 
     /**
@@ -54,14 +66,18 @@ class UserController extends Controller
      */
     public function update(Request $req, $id)
     {
-        $user = User::findOrFail($id);
-
-        $user->name = $req->name;
-        $user->email = $req->email;
-
-        $user->save();
-
-        return redirect()->route('users.show', ['id' => $id]);
+        if(in_array("write", $req->get('permissions'))){
+            $user = User::findOrFail($id);
+    
+            $user->name = $req->name;
+            $user->email = $req->email;
+    
+            $user->save();
+    
+            return redirect()->route('users.show', ['id' => $id]);
+        } else {
+            return abort(403, "Sorry you do not have the right permissions");
+        }
     }
 
     /**
@@ -72,6 +88,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (in_array("delete", $req->get('permissions'))) {
+        } else {
+            return abort(403, "Sorry you do not have the right permissions");
+        }
     }
 }
