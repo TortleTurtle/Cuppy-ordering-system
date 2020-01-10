@@ -41,8 +41,10 @@ class User extends Authenticatable
     public function cups(){
         return $this->hasMany('App\Cup');
     }
-
     public function orders(){
         return $this->hasMany('App\Order');
+    }
+    public function role(){
+        return $this->belongsTo('App/Role');
     }
 }
