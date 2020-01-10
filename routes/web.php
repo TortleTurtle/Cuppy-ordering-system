@@ -45,3 +45,11 @@ Route::group(['prefix' => 'users', 'as' => 'users.'], function (){
 });
 
 Route::resource('newcuppy', 'UploadImageController');
+
+// test image converter
+Route::get('/img', function()
+{
+    $img = Image::make(file_get_contents('./foo.png'));
+    $img->resize(300, 200);
+    return $img->response('jpg');
+});

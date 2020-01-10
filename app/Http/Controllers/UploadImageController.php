@@ -71,9 +71,12 @@ class UploadImageController extends Controller
                     imagedestroy($orgingif);
                     $orginImg = "$orginImgwithoutGif.png";
                 }
+
+
+
             $img = imagecreatefromstring(file_get_contents($orginImg));
             imagefilter($img, IMG_FILTER_GRAYSCALE); //first, convert to grayscale
-            imagefilter($img, IMG_FILTER_CONTRAST, -100); //then, apply a full contrast
+            imagefilter($img, IMG_FILTER_CONTRAST, -350); //then, apply a full contrast
             imagefilter($img, IMG_FILTER_NEGATE);
             imagepng( $img, $orginImg);
 
