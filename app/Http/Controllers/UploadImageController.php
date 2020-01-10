@@ -38,7 +38,7 @@ class UploadImageController extends Controller
     public function store(Request $request)
     {
             request()->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:14048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:34048',
         ]);
 
         $imageName = time().'.'.request()->image->getClientOriginalExtension();
@@ -73,7 +73,7 @@ class UploadImageController extends Controller
                 }
             $img = imagecreatefromstring(file_get_contents($orginImg));
             imagefilter($img, IMG_FILTER_GRAYSCALE); //first, convert to grayscale
-            imagefilter($img, IMG_FILTER_CONTRAST, -255); //then, apply a full contrast
+            imagefilter($img, IMG_FILTER_CONTRAST, -100); //then, apply a full contrast
             imagefilter($img, IMG_FILTER_NEGATE);
             imagepng( $img, $orginImg);
 

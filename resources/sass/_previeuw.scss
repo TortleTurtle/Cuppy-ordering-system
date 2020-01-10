@@ -1,0 +1,15 @@
+.cuppyplaceholder{
+    height: 800px;
+    position: absolute;
+    z-index: 1
+}
+
+.cuppyprint{
+    top: 300px;
+    left: 40px;
+    max-height: 700px;
+    max-width: 230px;
+    position: absolute;
+    z-index: 2;
+    filter: invert(100%);
+}

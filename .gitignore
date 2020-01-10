@@ -22,6 +22,7 @@ storage/*.key
 .env.backup
 .phpunit.result.cache
 Homestead.json
+/public/images/
 
 # Rocketeer PHP task runner and deployment package. https://github.com/rocketeers/rocketeer
 .rocketeer/
