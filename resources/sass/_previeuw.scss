@@ -6,10 +6,32 @@
 
 .cuppyprint{
     top: 300px;
-    left: 40px;
+    left: 300px;
     max-height: 700px;
     max-width: 230px;
     position: absolute;
     z-index: 2;
     filter: invert(100%);
+}
+
+.navbar {
+    background-color: $mainBcCl!important;
+}
+
+.navbar-menu-box{
+    display: flex;
+    background-color: $secondBcCl;
+    border-radius:$border-radius;
+    padding: 5px;
+}
+
+.navbar-button-back{
+    margin-right: 10px;
+    background-color: $secondBtnCl;
+}
+
+.home{
+    font-family: "FontAwesome";
+    font-size: 30px!important;
+    padding: 0px 10px !important;
 }

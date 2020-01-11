@@ -53,21 +53,36 @@ class UploadImageController extends Controller
 
         //filter image
         $img = Image::make(file_get_contents($imgpad));
-        $img->fit(350);
+        unlink($imgpad);
         $img->greyscale();
-        $img->contrast(100);
-        $img->invert();
+        $img->contrast(80);
+        $img->resize(300, 200);
+        $img->sharpen(50);
+
+        // rotate call
+        $h = $img->height();
+        $w = $img->width();
+        $margin = $w / $h;
+        if($margin > 1.4){
+            $img->rotate(-90);
+        }
 
         // save image
         $imageName = "$withoutExt.jpg";
         $newpad = "$pad/$withoutExt.jpg";
         $img->save($newpad);
 
-        unlink($imgpad);
+
 
         //remove background
         $img = imagecreatefromstring(file_get_contents($newpad));
         $white = imagecolorallocate($img, 255, 255, 255);
+        imagecolortransparent($img, $white);
+        $white = imagecolorallocate($img, 254, 254, 254);
+        imagecolortransparent($img, $white);
+        $white = imagecolorallocate($img, 253, 253, 253);
+        imagecolortransparent($img, $white);
+        $white = imagecolorallocate($img, 252, 252, 252);
         imagecolortransparent($img, $white);
         imagepng( $img, "$newpad");
 
