@@ -20,7 +20,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'orders', 'as' => 'orders.'], function (){
-    Route::group(['middleware' => ['auth']], function (){
+    Route::group(['middleware' => ['auth', "permissions"]], function (){
         Route::get('/', 'OrderController@index')->name('index');
         Route::post('/', 'OrderController@store')->name('store');
         Route::get('/edit/{id}', 'OrderController@edit')->name('edit');

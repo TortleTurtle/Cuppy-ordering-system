@@ -8,26 +8,26 @@ use App\Order;
 use App\User;
 use App\Cup;
 use Carbon\Carbon;
+use App\Helper;
 
 class OrderController extends Controller
 {
     //index orders
     public function index(Request $req){
-        if(in_array("read", $req->get('permissions'))){
-            $orders = Order::with(['owner' => function ($query){
-                $query->select('id', 'name');
-            }])->get();
-    
-            //return $orders;
-            return view('orders/Orders', compact('orders'));
-        }
-        else {
-            return abort(403, "Sorry you do not have the right permissions");
-        }
+        checkPermission('read', $req);
+
+        $orders = Order::with(['owner' => function ($query){
+            $query->select('id', 'name');
+        }])->get();
+
+        //return $orders;
+        return view('orders.index', compact('orders'));
     }
 
     //show
     public function show($id){
+        checkPermission('read', $req);
+
          $order = Order::with(['owner' => function ($query){
              $query->select('id', 'name');
          }])->where('id', '=', $id)->firstOrFail();
@@ -37,11 +37,14 @@ class OrderController extends Controller
 
     //create
     public function create(){
+        checkPermission('write', $req);
+
         return view('orders/place');
     }
 
     //store
     public function store(Request $req){
+
         $dateTime = Carbon::now();
         //create a cup for the order.
         $cup = new Cup;
