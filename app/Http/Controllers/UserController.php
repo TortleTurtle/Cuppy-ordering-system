@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\User;
 
 class UserController extends Controller
@@ -14,13 +15,11 @@ class UserController extends Controller
      */
     public function index(Request $req)
     {
-        if(in_array("read", $req->get('permissions'))){
-            $users = User::select('id', 'name', 'email')->withCount(['cups', 'orders'])->get();
+        checkPermission('read', $req);
     
-            return view('users.index', compact('users'));
-        } else {
-            return abort(403, "Sorry you do not have the right permissions");
-        }
+        $users = User::select('id', 'name', 'email')->withCount(['cups', 'orders'])->get();
+
+        return view('users.index', compact('users'));
     }
 
     /**
@@ -31,13 +30,13 @@ class UserController extends Controller
      */
     public function show($id, Request $req)
     {
-        if(in_array("read", $req->get('permissions'))){
-            $user = User::with('cups', 'orders')->findOrFail($id);
-    
-            return view('users.show', compact('user'));
-        } else {
-            return abort(403, "Sorry you do not have the right permissions");
+        $user = User::with('cups', 'orders')->findOrFail($id);
+
+        if (!(Auth::user()->id == $user->id)){
+            checkPermission('read', $req);
         }
+
+        return view('users.show', compact('user'));        
     }
 
     /**
@@ -48,12 +47,14 @@ class UserController extends Controller
      */
     public function edit($id, Request $req)
     {
-        if(in_array("write", $req->get('permissions'))){
-            $user = User::select('id', 'name', 'email')->findOrFail($id);
-    
+        $user = User::with(['role'])->select('id', 'name', 'email', 'role_id')->findOrFail($id);
+
+        if(Auth::user()->id == $id){
             return view('users.edit', compact('user'));
         } else {
-            return abort(403, "Sorry you do not have the right permissions");
+            //admins can also change a users role.
+            checkPermission('write', $req);
+            return view('admin.userEdit', compact('user'));
         }
     }
 
@@ -66,7 +67,7 @@ class UserController extends Controller
      */
     public function update(Request $req, $id)
     {
-        if(in_array("write", $req->get('permissions'))){
+        if(Auth::user()->id == $id){
             $user = User::findOrFail($id);
     
             $user->name = $req->name;
@@ -76,7 +77,16 @@ class UserController extends Controller
     
             return redirect()->route('users.show', ['id' => $id]);
         } else {
-            return abort(403, "Sorry you do not have the right permissions");
+            //admins can also change a users role.
+            checkPermission('write', $req);
+
+            $user = User::findOrFail($id);
+
+            $user->name = $req->name;
+            $user->email = $req->email;
+            $user->role_id = $req->role_id;
+
+            $user->save();
         }
     }
 
@@ -86,11 +96,8 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $req)
     {
-        if (in_array("delete", $req->get('permissions'))) {
-        } else {
-            return abort(403, "Sorry you do not have the right permissions");
-        }
+        checkPermission('delete', $req);
     }
 }

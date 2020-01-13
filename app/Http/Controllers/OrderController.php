@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use App\Order;
 use App\User;
 use App\Cup;
@@ -25,20 +25,21 @@ class OrderController extends Controller
     }
 
     //show
-    public function show($id){
-        checkPermission('read', $req);
-
-         $order = Order::with(['owner' => function ($query){
-             $query->select('id', 'name');
-         }])->where('id', '=', $id)->firstOrFail();
+    public function show($id, Request $req){
+        $order = Order::with(['owner' => function ($query){
+            $query->select('id', 'name');
+        }])->where('id', '=', $id)->firstOrFail();
+        
+        //order can only be viewed by the owner or a admin.
+        if (!(Auth::user()->id == $order->user_id)) {
+            checkPermission('read', $req);
+        }
 
         return view('orders/show', compact('order'));
     }
 
     //create
     public function create(){
-        checkPermission('write', $req);
-
         return view('orders/place');
     }
 
@@ -73,54 +74,48 @@ class OrderController extends Controller
 
     //edit
     public function edit($id, Request $req){
-        if (in_array("write", $req->get('permissions'))) {
-            $order = Order::findOrFail($id);
+        checkPermission('write', $req);
+        
+        $order = Order::findOrFail($id);
 
-            return view('orders.edit', [
-                'order' => $order,
-            ]);
-        } else {
-            abort(403, "Sorry you do not have the right permissions");
-        }
+        return view('orders.edit', [
+            'order' => $order,
+        ]);
     }
 
     //update
     public function update(Request $req ,$id){
-        if (in_array("write", $req->get('permissions'))){
-            //find corresponding order.
-            $order = Order::findOrFail($id);
-    
-            //update data
-            $order->clip = $req->clip;
-            $order->engraving = $req->engraving;
-            $order->front_img = $req->front_img;
-            $order->back_img = $req->back_img;
-            $order->location = $req->location;
-            $order->cup_id = $req->cup_id;
-            $order->status = $req->status;
-            $order->user_id = $req->user_id;
-            
-            $order->save();
-    
-            return redirect()->route('orders.show', ['id' => $id]);
-        } else {
-            return abort(403, "Sorry you do not have the right permissions");
-        }
+        checkPermission('write', $req);
+
+        //find corresponding order.
+        $order = Order::findOrFail($id);
+
+        //update data
+        $order->clip = $req->clip;
+        $order->engraving = $req->engraving;
+        $order->front_img = $req->front_img;
+        $order->back_img = $req->back_img;
+        $order->location = $req->location;
+        $order->cup_id = $req->cup_id;
+        $order->status = $req->status;
+        $order->user_id = $req->user_id;
+        
+        $order->save();
+
+        return redirect()->route('orders.show', ['id' => $id]);
     }
 
     //delete
     public function delete($id, Request $req){
-        if (in_array('delete', $req->get('permissions'))) {
-            $deletedOrder = Order::destroy($id);
-    
-            if ($deletedOrder){
-                return redirect()->route('orders.index');
-            }
-            else{
-                return "Oops something went wrong";
-            }
-        } else {
-            abort(403, "Sorry you do not have the right permissions");
+        checkPermission('delete', $req);
+
+        $deletedOrder = Order::destroy($id);
+
+        if ($deletedOrder){
+            return redirect()->route('orders.index');
+        }
+        else{
+            return "Oops something went wrong";
         }
     }
 }
