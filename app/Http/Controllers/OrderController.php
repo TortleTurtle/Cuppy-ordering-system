@@ -9,6 +9,7 @@ use App\User;
 use App\Cup;
 use Mollie\Laravel\Facades\Mollie;
 use Carbon\Carbon;
+$payment = \Mollie\Laravel\Facades\Mollie::api()->payments()->get($payment_id);
 
 class OrderController extends Controller
 {
@@ -74,7 +75,7 @@ public function pay()
             'currency' => 'EUR',
             'value' => '10.00', // You must send the correct number of decimals, thus we enforce the use of strings
         ],
-        'description' => 'My first API payment',
+        'description' => 'CUPPY',
         'webhookUrl' => route('webhooks.mollie'),
         'redirectUrl' => route('orders.index'),
         ]);
