@@ -9,7 +9,7 @@ use App\User;
 use App\Cup;
 use Mollie\Laravel\Facades\Mollie;
 use Carbon\Carbon;
-$payment = \Mollie\Laravel\Facades\Mollie::api()->payments()->get($payment_id);
+// $payment = \Mollie\Laravel\Facades\Mollie::api()->payments()->get($payment_id);
 
 class OrderController extends Controller
 {
