@@ -44,28 +44,33 @@ class UploadImageController extends Controller
 
         //move image to public map
         $imageName = time().'.'.request()->image->getClientOriginalExtension();
-        request()->image->move(public_path('images'), $imageName);
+        request()->image->move(public_path('images/uploads'), $imageName);
 
         //get image location for filter
-        $pad = public_path('images');
+        $pad = public_path('images/uploads');
         $imgpad = "$pad". "/" . "$imageName";
         $withoutExt = preg_replace('/\\.[^.\\s]{3,4}$/', '', $imageName);
 
         //filter image
         $img = Image::make(file_get_contents($imgpad));
         unlink($imgpad);
-        $img->greyscale();
-        $img->contrast(80);
-        $img->resize(300, 200);
-        $img->sharpen(50);
+        // $img->greyscale();
+        // $img->contrast(50);
+        // $img->resize(300, 200);
+        // $img->invert();
+        // $img->sharpen(50);
+
+        $img->greyscale(); // greyscale the signature image
+        $img->contrast(100); // increase the contrast to reach pure black and white
+        $img->invert(); // invert it to use as a mask
 
         // rotate call
-        $h = $img->height();
-        $w = $img->width();
-        $margin = $w / $h;
-        if($margin > 1.4){
-            $img->rotate(-90);
-        }
+        // $h = $img->height();
+        // $w = $img->width();
+        // $margin = $w / $h;
+        // if($margin > 1.4){
+        //     $img->rotate(-90);
+        // }
 
         // save image
         $imageName = "$withoutExt.jpg";
@@ -74,17 +79,26 @@ class UploadImageController extends Controller
 
 
 
+
+
         //remove background
         $img = imagecreatefromstring(file_get_contents($newpad));
         $white = imagecolorallocate($img, 255, 255, 255);
         imagecolortransparent($img, $white);
-        $white = imagecolorallocate($img, 254, 254, 254);
-        imagecolortransparent($img, $white);
-        $white = imagecolorallocate($img, 253, 253, 253);
-        imagecolortransparent($img, $white);
-        $white = imagecolorallocate($img, 252, 252, 252);
-        imagecolortransparent($img, $white);
         imagepng( $img, "$newpad");
+
+        // $img = imagecreatefromstring(file_get_contents($newpad));
+        // $white = imagecolorallocate($img, 254, 254, 254);
+        // imagecolortransparent($img, $white);
+        // imagepng( $img, "$newpad");
+
+        // $white = imagecolorallocate($img, 254, 254, 254);
+        // imagecolortransparent($img, $white);
+        // $white = imagecolorallocate($img, 253, 253, 253);
+        // imagecolortransparent($img, $white);
+        // $white = imagecolorallocate($img, 252, 252, 252);
+        // imagecolortransparent($img, $white);
+
 
 
         return back()

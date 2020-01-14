@@ -2,6 +2,9 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 @import "node_modules/font-awesome/scss/font-awesome.scss";
 
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
 // Variables
 @import 'variables';
 
@@ -11,7 +14,6 @@
 //main scss
 @import 'previeuw';
 
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+
 
 

@@ -1,5 +1,13 @@
+//load assets
+$assetPath : "images/system";
+@function get-path-to-assets($assetPath){
+  @return $assetPath;
+}
+
+$path: get-path-to-assets("images/system");
 // Body
 $body-bg: #f8fafc;
+$bodyBgImg: url(#{$path}/bg.png) no-repeat center center fixed;
 
 // Typography
 $font-family-sans-serif: 'Nunito', sans-serif;

@@ -2,9 +2,8 @@
 
 @section('menubuttons')
             <button type="submit" class="btn navbar-button-back home"></button>
-            <button type="submit" class="btn navbar-button-back">Upload</button>
-            <button type="submit" class="btn navbar-button-back">Upload</button>
-            <button type="submit" class="btn">Upload</button>
+            <button type="submit" class="btn navbar-button-back">Selecteer beker</button>
+            <button type="submit" class="btn">ontwerp</button>
 @endsection
 
 @section('content')
@@ -19,12 +18,12 @@
                             <strong>{{ $message }}</strong>
                     </div>
 
-                    <img class="cuppyprint" src="images/{{ Session::get('image') }}">
-                    <img class="cuppyplaceholder" src="images/system/cupyplaceholder.png">
+                    <img class="cuppyprint" src="images/uploads/{{ Session::get('image') }}">
+                    <img class="cuppyplaceholder" src="images/system/cuppyblack.png">
 
 
                     @php $userimg = "images" . Session::get('image') @endphp
-                    <div id="container"></div>
+                        <div id="container"></div>
                     @endif
 
                     @if (count($errors) > 0)
@@ -38,17 +37,20 @@
                         </div>
                     @endif
 
+                    @if (!$message = Session::get('success'))
+                    <div class="alert alert-info">
+                        <strong>Info!</strong> Je ontwerp wordt omgezet in zwart wit. <br> Het witte gedeelde wordt van de beker afgehaald met een laser.
+                    </div>
+
                     <form action="/newcuppy" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-md-6">
-                                <input type="file" name="image" class="form-control btn">
-                            </div>
-                            <div class="col-md-6">
-                                <button type="submit" class="btn btn-success">Upload</button>
+                                <input onchange="this.form.submit()" type="file" name="image" class="form-control btn">
                             </div>
                         </div>
                     </form>
+                    @endif
                 </div>
             </div>
         </div>
