@@ -20,8 +20,12 @@ class OrderController extends Controller
             $query->select('id', 'name');
         }])->get();
 
+<<<<<<< HEAD
         //return $orders;
         return view('orders.index', compact('orders'));
+=======
+        return view('orders/index', compact('orders'));
+>>>>>>> payment
     }
 
     //show

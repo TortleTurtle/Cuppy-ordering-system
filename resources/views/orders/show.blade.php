@@ -47,7 +47,7 @@
         <form action="{{route('orders.delete', ['id' => $order->id])}}" method="POST">
             @method('DELETE')
             @csrf
-            <input type="submit" class="btn btn-danger" name="submit">
+            <input type="submit" class="btn btn-danger" value="Delete" name="submit">
         </form>
     </div>
 @endsection
