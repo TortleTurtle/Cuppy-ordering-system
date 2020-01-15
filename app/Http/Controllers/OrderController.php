@@ -3,18 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use App\Order;
 use App\User;
 use App\Cup;
 use Mollie\Laravel\Facades\Mollie;
 use Carbon\Carbon;
-// $payment = \Mollie\Laravel\Facades\Mollie::api()->payments()->get($payment_id);
+use App\Helper;
 
 class OrderController extends Controller
 {
     //index orders
-    public function index(){
+    public function index(Request $req){
+        checkPermission('read', $req);
+
         $orders = Order::with(['owner' => function ($query){
             $query->select('id', 'name');
         }])->get();
@@ -25,10 +27,15 @@ class OrderController extends Controller
 
 
     //show
-    public function show($id){
-         $order = Order::with(['owner' => function ($query){
-             $query->select('id', 'name');
-         }])->where('id', '=', $id)->firstOrFail();
+    public function show($id, Request $req){
+        $order = Order::with(['owner' => function ($query){
+            $query->select('id', 'name');
+        }])->where('id', '=', $id)->firstOrFail();
+        
+        //order can only be viewed by the owner or a admin.
+        if (!(Auth::user()->id == $order->user_id)) {
+            checkPermission('read', $req);
+        }
 
         return view('orders/show', compact('order'));
     }
@@ -41,6 +48,7 @@ class OrderController extends Controller
 
     //store
     public function store(Request $req){
+
         $dateTime = Carbon::now();
         //create a cup for the order.
         $cup = new Cup;
@@ -87,7 +95,9 @@ public function pay()
 }
 
     //edit
-    public function edit($id){
+    public function edit($id, Request $req){
+        checkPermission('write', $req);
+        
         $order = Order::findOrFail($id);
 
         return view('orders.edit', [
@@ -97,6 +107,7 @@ public function pay()
 
     //update
     public function update(Request $req ,$id){
+        checkPermission('write', $req);
 
         //find corresponding order.
         $order = Order::findOrFail($id);
@@ -117,7 +128,9 @@ public function pay()
     }
 
     //delete
-    public function delete($id){
+    public function delete($id, Request $req){
+        checkPermission('delete', $req);
+
         $deletedOrder = Order::destroy($id);
 
         if ($deletedOrder){
