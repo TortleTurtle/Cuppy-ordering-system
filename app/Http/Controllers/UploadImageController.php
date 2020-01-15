@@ -58,7 +58,7 @@ class UploadImageController extends Controller
         }
 
         return back()
-        ->with('success','You have successfully uploaded your desing .')
+        ->with('success','You have successfully uploaded your design .')
         ->with('image', $imageName);
     }
 

@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Order;
 use App\User;
 use App\Cup;
-use Mollie\Laravel\Facades\Mollie;
 use Carbon\Carbon;
 use App\Helper;
 
@@ -21,7 +20,7 @@ class OrderController extends Controller
             $query->select('id', 'name');
         }])->get();
 
-//        return $orders;
+    // return $orders;
         return view('orders/index', compact('orders'));
     }
 
@@ -72,27 +71,11 @@ class OrderController extends Controller
 
         $order->save();
 
-        return redirect()->action('OrderController@pay');
+        return redirect()->action('PaymentController@pay');
         // return redirect()->route('orders.show', ['id' => $order->id]);
     }
 
-public function pay()
-{
-    $payment = Mollie::api()->payments()->create([
-        'amount' => [
-            'currency' => 'EUR',
-            'value' => '10.00', // You must send the correct number of decimals, thus we enforce the use of strings
-        ],
-        'description' => 'CUPPY',
-        'webhookUrl' => route('webhooks.mollie'),
-        'redirectUrl' => route('orders.index'),
-        ]);
 
-        $payment = Mollie::api()->payments()->get($payment->id);
-
-        // redirect customer to Mollie checkout page
-        return redirect($payment->getCheckoutUrl(), 303);
-}
 
     //edit
     public function edit($id, Request $req){
