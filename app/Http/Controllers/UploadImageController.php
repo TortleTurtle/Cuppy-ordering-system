@@ -77,15 +77,11 @@ class UploadImageController extends Controller
         $newpad = "$pad/$withoutExt.jpg";
         $img->save($newpad);
 
-
-
-
-
         //remove background
-        $img = imagecreatefromstring(file_get_contents($newpad));
-        $white = imagecolorallocate($img, 255, 255, 255);
-        imagecolortransparent($img, $white);
-        imagepng( $img, "$newpad");
+        // $img = imagecreatefromstring(file_get_contents($newpad));
+        // $white = imagecolorallocate($img, 255, 255, 255);
+        // imagecolortransparent($img, $white);
+        // imagepng( $img, "$newpad");
 
         // $img = imagecreatefromstring(file_get_contents($newpad));
         // $white = imagecolorallocate($img, 254, 254, 254);
@@ -98,7 +94,8 @@ class UploadImageController extends Controller
         // imagecolortransparent($img, $white);
         // $white = imagecolorallocate($img, 252, 252, 252);
         // imagecolortransparent($img, $white);
-
+        session_start();
+        session()->put('engraving', $imageName);
 
 
         return back()

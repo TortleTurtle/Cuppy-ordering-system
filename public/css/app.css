@@ -14203,6 +14203,10 @@ footer {
   justify-content: space-around;
 }
 
+.tabel {
+  background-color: #ECE0D1 !important;
+}
+
 .cuppyplaceholder {
   height: 800px;
   position: absolute;
@@ -14246,6 +14250,17 @@ footer {
 .display {
   background-color: #967259;
   border: 1px #ECE0D1;
+}
+
+.button-box {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+  justify-content: space-around;
+  background-color: #967259;
+  padding: 10px;
 }
 
 header {

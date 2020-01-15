@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('menubuttons')
+            <a href="/" class="btn navbar-button-back home"></a>
+@endsection
+
 @section('content')
     <div class="row">
         <div class="col-md-9">

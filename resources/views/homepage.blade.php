@@ -27,7 +27,7 @@
             </div>
             <div id="tabel-cuppy"></div>
             <div class="buttons-header-box">
-                <a class="btnhome" href="/newcuppy">ONTWERP BEKER</a>
+                <a class="btnhome" href="/orders/new">ONTWERP BEKER</a>
                 <a class="btnhome" href="/home">Login</a>
             </div>
         </header>

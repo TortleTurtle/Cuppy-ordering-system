@@ -29,6 +29,11 @@ Route::group(['prefix' => 'orders', 'as' => 'orders.'], function (){
         Route::post('/', 'OrderController@store')->name('store');
         Route::get('/edit/{id}', 'OrderController@edit')->name('edit');
         Route::get('/place', 'OrderController@create')->name('create');
+        Route::get('/new', function () {return view('orders.options');});
+        Route::get('/nietgraveren', function () {return view('orders.nietgraveren');});
+        Route::get('/graveren', function () {return view('orders.graveren');});
+        Route::get('/test', 'OrderController@test')->name('create');
+        Route::get('/test2', 'OrderController@test2')->name('create');
         Route::get('/{id}', 'OrderController@show')->name('show');
         Route::put('/{id}', 'OrderController@update')->name('update');
         Route::delete('/{id}', 'OrderController@delete')->name('delete');

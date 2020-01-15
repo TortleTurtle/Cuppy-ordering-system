@@ -1,9 +1,9 @@
 @extends('layouts.app');
 
 @section('menubuttons')
-            <button type="submit" class="btn navbar-button-back home"></button>
-            <button type="submit" class="btn navbar-button-back">Selecteer beker</button>
-            <button type="submit" class="btn">ontwerp</button>
+            <a href="/" class="btn navbar-button-back home"></a>
+            <a href="/" class="btn navbar-button-back ">Selecteer beker</a>
+            <button type="submit" class="btn">Uploud ontwerp</button>
 @endsection
 
 @section('content')
@@ -24,7 +24,11 @@
 
                     @php $userimg = "images" . Session::get('image') @endphp
                         <div id="container"></div>
+                        <div class="button-box">
+                            <a href="../orders/graveren" class="btn"> ontwerp goedkeuren</a> <a href="../newcuppy" class="btn"> ander ontwerp uplouden</a>
+                        </div>
                     @endif
+
 
                     @if (count($errors) > 0)
                         <div class="alert alert-danger">
@@ -50,7 +54,9 @@
                             </div>
                         </div>
                     </form>
+
                     @endif
+
                 </div>
             </div>
         </div>
