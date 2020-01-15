@@ -7,6 +7,6 @@
 function checkPermission($permission, $req){
     //If the user doesn't have the mission abort.
     if (!(in_array($permission, $req->get('permissions')))) {
-        # code...
+        return abort(403, "You do not have the right permissions");
     }
 }
