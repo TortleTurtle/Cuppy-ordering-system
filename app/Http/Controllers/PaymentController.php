@@ -18,7 +18,7 @@ class PaymentController extends Controller
             'description' => 'CUPPY™ beker',
             'locale' => 'nl_NL',
             'webhookUrl' => route('webhooks.mollie'),
-            'redirectUrl' => route('orders.index'),
+            'redirectUrl' => route('orders.success'),
             ]);
             
         $payment = Mollie::api()->payments()->get($payment->id);
@@ -26,16 +26,23 @@ class PaymentController extends Controller
         // redirect customer to Mollie checkout page
         return redirect($payment->getCheckoutUrl(), 303);
         
+        if ($payment -> isPaid()) {
+            return view('orders.paid');
+        } else {
+            return view('orders.notPaid');
+        }
     }
 
     public function paid()
     {
-        $payment = Mollie::api()->payments()->get($payment->id);
-        
-        if ($payment -> isPaid()) {
-            return view('users.paid');
-        } else {
-            return view('users.notPaid');
-        }
+      
+            return view('orders.paid');
+       
+    }
+    public function notPaid()
+    {
+      
+            return view('orders.notPaid');
+       
     }
 }
