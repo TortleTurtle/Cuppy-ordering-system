@@ -61,8 +61,8 @@ class UploadImageController extends Controller
         // $img->sharpen(50);
 
         $img->greyscale(); // greyscale the signature image
-        $img->contrast(100); // increase the contrast to reach pure black and white
-        $img->invert(); // invert it to use as a mask
+        $img->contrast(60); // increase the contrast to reach pure black and white
+        // $img->invert(); // invert it to use as a mask
 
         // rotate call
         // $h = $img->height();
@@ -78,10 +78,10 @@ class UploadImageController extends Controller
         $img->save($newpad);
 
         //remove background
-        // $img = imagecreatefromstring(file_get_contents($newpad));
-        // $white = imagecolorallocate($img, 255, 255, 255);
-        // imagecolortransparent($img, $white);
-        // imagepng( $img, "$newpad");
+        $img = imagecreatefromstring(file_get_contents($newpad));
+        $white = imagecolorallocate($img, 255, 255, 255);
+        imagecolortransparent($img, $white);
+        imagepng( $img, "$newpad");
 
         // $img = imagecreatefromstring(file_get_contents($newpad));
         // $white = imagecolorallocate($img, 254, 254, 254);
@@ -99,7 +99,7 @@ class UploadImageController extends Controller
 
 
         return back()
-        ->with('success','You have successfully uploaded your desing .')
+        ->with('success','Uploud geslaagd.')
         ->with('image', $imageName);
     }
 

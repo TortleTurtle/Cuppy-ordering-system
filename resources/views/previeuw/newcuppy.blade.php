@@ -9,7 +9,6 @@
 @section('content')
     <div class="container">
         <div class="panel panel-primary">
-            <div class="panel-heading"><h2>Cuppy lazer cut converter</h2></div>
                 <div class="panel-body">
 
                     @if ($message = Session::get('success'))
@@ -25,7 +24,7 @@
                     @php $userimg = "images" . Session::get('image') @endphp
                         <div id="container"></div>
                         <div class="button-box">
-                            <a href="../orders/graveren" class="btn"> ontwerp goedkeuren</a> <a href="../newcuppy" class="btn"> ander ontwerp uplouden</a>
+                            <a href="../orders/graveren" class="btnhome"> ontwerp goedkeuren</a> <br> <a href="../newcuppy" class="btnhome navbar-button-back"> ander ontwerp uplouden</a>
                         </div>
                     @endif
 
@@ -43,7 +42,7 @@
 
                     @if (!$message = Session::get('success'))
                     <div class="alert alert-info">
-                        <strong>Info!</strong> Je ontwerp wordt omgezet in zwart wit. <br> Het witte gedeelde wordt van de beker afgehaald met een laser.
+                        <strong>Uploud je ontwerp</strong> deze wordt omgezet in zwart wit. <br> Het witte gedeelde wordt van de beker afgehaald met een laser.
                     </div>
 
                     <form action="/newcuppy" method="POST" enctype="multipart/form-data">

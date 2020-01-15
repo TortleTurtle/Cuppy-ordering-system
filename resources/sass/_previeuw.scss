@@ -1,17 +1,20 @@
 .cuppyplaceholder{
-    height: 800px;
-    position: absolute;
-    z-index: 1
+    height: 65vh;
+    // position: absolute;
+    z-index: 1;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 .cuppyprint{
-    top: 320px;
-    left: 500px;
+    top: 200px;
     max-height: 600px;
-    max-width: 300px;
+    max-width: 200px;
     position: absolute;
     z-index: 2;
     filter: invert(100%);
+    margin-right: auto;
+    margin-left: auto;
 }
 
 .navbar {
