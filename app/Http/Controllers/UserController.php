@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\User;
 
 class UserController extends Controller
@@ -12,8 +13,10 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $req)
     {
+        checkPermission('read', $req);
+    
         $users = User::select('id', 'name', 'email')->withCount(['cups', 'orders'])->get();
 
         return view('users.index', compact('users'));
@@ -25,11 +28,15 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Request $req)
     {
         $user = User::with('cups', 'orders')->findOrFail($id);
 
-        return view('users.show', compact('user'));
+        if (!(Auth::user()->id == $user->id)){
+            checkPermission('read', $req);
+        }
+
+        return view('users.show', compact('user'));        
     }
 
     /**
@@ -38,11 +45,17 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, Request $req)
     {
-        $user = User::select('id', 'name', 'email')->findOrFail($id);
+        $user = User::with(['role'])->select('id', 'name', 'email', 'role_id')->findOrFail($id);
 
-        return view('users.edit', compact('user'));
+        if(Auth::user()->id == $id){
+            return view('users.edit', compact('user'));
+        } else {
+            //admins can also change a users role.
+            checkPermission('write', $req);
+            return view('admin.userEdit', compact('user'));
+        }
     }
 
     /**
@@ -54,14 +67,27 @@ class UserController extends Controller
      */
     public function update(Request $req, $id)
     {
-        $user = User::findOrFail($id);
+        if(Auth::user()->id == $id){
+            $user = User::findOrFail($id);
+    
+            $user->name = $req->name;
+            $user->email = $req->email;
+    
+            $user->save();
+    
+            return redirect()->route('users.show', ['id' => $id]);
+        } else {
+            //admins can also change a users role.
+            checkPermission('write', $req);
 
-        $user->name = $req->name;
-        $user->email = $req->email;
+            $user = User::findOrFail($id);
 
-        $user->save();
+            $user->name = $req->name;
+            $user->email = $req->email;
+            $user->role_id = $req->role_id;
 
-        return redirect()->route('users.show', ['id' => $id]);
+            $user->save();
+        }
     }
 
     /**
@@ -70,8 +96,8 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $req)
     {
-        //
+        checkPermission('delete', $req);
     }
 }
