@@ -15,11 +15,16 @@
 	font-size:$font-size!important;
     color:$font-color!important;
     text-decoration: none!important;
-    @include shadow;
+
 }
 
 .btn {
-	@include button;
+    @include button;
+    @include shadow;
+}
+
+.btnhome{
+    @include button;
 }
 
 .btn-large {
@@ -33,4 +38,11 @@
 body{
     background: $bodyBgImg;
     background-size: cover;
+}
+
+footer{
+    background-color: $secondBcCl;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 }

@@ -5,6 +5,7 @@ $assetPath : "images/system";
 }
 
 $path: get-path-to-assets("images/system");
+
 // Body
 $body-bg: #f8fafc;
 $bodyBgImg: url(#{$path}/bg.png) no-repeat center center fixed;

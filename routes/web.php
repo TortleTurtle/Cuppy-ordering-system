@@ -19,6 +19,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/', function () {
+    return view('homepage');
+});
+
 Route::group(['prefix' => 'orders', 'as' => 'orders.'], function (){
 
     Route::get('/', 'OrderController@index')->name('index');

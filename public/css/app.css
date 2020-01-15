@@ -14164,6 +14164,16 @@ a.text-dark:focus {
   box-shadow: 0px 3px 6px 0px #e0e0e0;
 }
 
+.btnhome {
+  padding: 10px 20px !important;
+  display: inline-block !important;
+  border-radius: 2pt !important;
+  background-color: #71AC23 !important;
+  font-size: 16px !important;
+  color: #ECE0D1 !important;
+  text-decoration: none !important;
+}
+
 .btn-large {
   padding: 20px 30px !important;
   display: inline-block !important;
@@ -14172,7 +14182,6 @@ a.text-dark:focus {
   font-size: 22px !important;
   color: #ECE0D1 !important;
   text-decoration: none !important;
-  box-shadow: 0px 3px 6px 0px #e0e0e0;
 }
 
 .timiser {
@@ -14182,6 +14191,16 @@ a.text-dark:focus {
 body {
   background: url(/images/bg.png?f066acc3a27f9c95b427b5ffc0a58a17) no-repeat center center fixed;
   background-size: cover;
+}
+
+footer {
+  background-color: #ECE0D1;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+  justify-content: space-around;
 }
 
 .cuppyplaceholder {
@@ -14227,5 +14246,105 @@ body {
 .display {
   background-color: #967259;
   border: 1px #ECE0D1;
+}
+
+header {
+  width: 100%;
+  height: 50%;
+  padding-top: 5vh;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  -webkit-box-pack: center;
+          justify-content: center;
+}
+
+.centerbox {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: center;
+          justify-content: center;
+}
+
+.cuppler-img-home {
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+  height: 50vh;
+  max-width: 400px;
+  background: url(/images/cuppyhome.png?b89380d30dac80694131c74a081d89a0);
+  background-repeat: no-repeat;
+  background-size: contain, cover;
+  background-position: bottom, center;
+}
+
+.buttons-header-box {
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #967259;
+  width: 90%;
+  padding: 10px;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  margin-bottom: 20px;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+  justify-content: space-around;
+  max-width: 400px;
+}
+
+.cuppy-info {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+  -webkit-box-pack: center;
+          justify-content: center;
+  background-color: #ECE0D1;
+  padding: 20px 10px;
+  width: 100%;
+}
+
+.about {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+  justify-content: space-around;
+  background-color: #967259;
+  padding: 20px 10px;
+  width: 100%;
+}
+
+.about-item {
+  max-width: 200px;
+  width: 30%;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+}
+
+.about-title {
+  background-color: #ECE0D1;
+  text-align: center;
+  font-size: 12pt;
+  padding: 20px;
+}
+
+.about-text {
+  background-color: #DBC1AC;
+  text-align: center;
+  font-size: 10pt;
+  padding: 5px;
 }
 
