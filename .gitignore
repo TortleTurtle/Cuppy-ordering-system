@@ -2,7 +2,7 @@ vendor/
 node_modules/
 npm-debug.log
 .idea/
-public/images/
+# public/images/
 
 
 # Laravel 4 specific

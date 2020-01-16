@@ -12,7 +12,7 @@ header{
     justify-content: center;
 }
 
-$path: get-path-to-assets("images/system");
+// $path: get-path-to-assets("images/system");
 
 .cuppler-img-home{
     margin-left: auto;
@@ -20,7 +20,7 @@ $path: get-path-to-assets("images/system");
     width: 90%;
     height: 50vh;
     max-width: 400px;
-    background: url(#{$path}/cuppyhome.png);
+    background: url(../images/cuppyhome.png);
     background-repeat: no-repeat;
     background-size: contain, cover;
     background-position: bottom, center;
