@@ -81,7 +81,8 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    cuppy
+                    
                 </div>
 
                 <div class="links">

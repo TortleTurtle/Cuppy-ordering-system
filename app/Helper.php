@@ -9,4 +9,5 @@ function checkPermission($permission, $req){
     if (!(in_array($permission, $req->get('permissions')))) {
         return abort(403, "You do not have the right permissions");
     }
+    
 }

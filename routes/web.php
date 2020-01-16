@@ -18,6 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/pay', 'PaymentController@pay')->name('webhooks.mollie');
 
 Route::get('/', function () {
     return view('homepage');
@@ -25,6 +26,8 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'orders', 'as' => 'orders.'], function (){
     Route::group(['middleware' => ['auth', "permissions"]], function (){
+        Route::get('/payment-success', 'PaymentController@paid')->name('payment-success');
+        Route::get('/payment-error', 'PaymentController@notPaid')->name('payment-error');
         Route::get('/', 'OrderController@index')->name('index');
         Route::post('/', 'OrderController@store')->name('store');
         Route::get('/edit/{id}', 'OrderController@edit')->name('edit');

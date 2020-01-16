@@ -20,8 +20,10 @@ class OrderController extends Controller
             $query->select('id', 'name');
         }])->get();
 
+    // return $orders;
         return view('orders/index', compact('orders'));
     }
+
 
     //show
     public function show($id, Request $req){
@@ -39,6 +41,7 @@ class OrderController extends Controller
 
     //create
     public function create(){
+
         return view('orders/place');
     }
 
@@ -106,8 +109,11 @@ class OrderController extends Controller
         }
 
         $test = session('newcupid');
-        return redirect()->route('orders.show', ['id' => $order->id]);
+        return redirect()->action('PaymentController@pay');
+        // return redirect()->route('orders.show', ['id' => $order->id]);
     }
+
+
 
     //edit
     public function edit($id, Request $req){
