@@ -3,7 +3,7 @@
 @section('menubuttons')
             <a href="/" class="btn navbar-button-back home"></a>
             <a href="../orders/new" class="btn navbar-button-back ">Selecteer beker</a>
-            <a href="../newcuppy" class="btn navbar-button-back ">uploud ontwerp</a>
+            <a href="../newcuppy" class="btn navbar-button-back ">upload ontwerp</a>
             <a  type="submit" class="btn">Accessoires</a>
 @endsection
 

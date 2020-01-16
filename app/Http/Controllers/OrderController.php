@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Order;
+use Mollie\Laravel\Facades\Mollie;
 use App\User;
 use App\Cup;
 use Carbon\Carbon;

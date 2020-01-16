@@ -99,7 +99,7 @@ class UploadImageController extends Controller
 
 
         return back()
-        ->with('success','Uploud geslaagd.')
+        ->with('success','Upload geslaagd.')
         ->with('image', $imageName);
     }
 

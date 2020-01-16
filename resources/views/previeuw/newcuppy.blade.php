@@ -3,7 +3,7 @@
 @section('menubuttons')
             <a href="/" class="btn navbar-button-back home"></a>
             <a href="/" class="btn navbar-button-back ">Selecteer beker</a>
-            <button type="submit" class="btn">Uploud ontwerp</button>
+            <button type="submit" class="btn">Upload ontwerp</button>
 @endsection
 
 @section('content')
@@ -24,7 +24,7 @@
                     @php $userimg = "images" . Session::get('image') @endphp
                         <div id="container"></div>
                         <div class="button-box">
-                            <a href="../orders/graveren" class="btnhome"> ontwerp goedkeuren</a> <br> <a href="../newcuppy" class="btnhome navbar-button-back"> ander ontwerp uplouden</a>
+                            <a href="../orders/graveren" class="btnhome"> ontwerp goedkeuren</a> <br> <a href="../newcuppy" class="btnhome navbar-button-back"> ander ontwerp uploaden</a>
                         </div>
                     @endif
 
@@ -42,7 +42,7 @@
 
                     @if (!$message = Session::get('success'))
                     <div class="alert alert-info">
-                        <strong>Uploud je ontwerp</strong> deze wordt omgezet in zwart wit. <br> Het witte gedeelde wordt van de beker afgehaald met een laser.
+                        <strong>Upload je ontwerp</strong> deze wordt omgezet in zwart wit. <br> Het witte gedeelde wordt van de beker afgehaald met een laser.
                     </div>
 
                     <form action="/newcuppy" method="POST" enctype="multipart/form-data">
