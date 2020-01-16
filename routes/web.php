@@ -22,7 +22,7 @@ Route::get('/pay', 'PaymentController@pay')->name('webhooks.mollie');
 
 Route::group(['prefix' => 'orders', 'as' => 'orders.'], function (){
     Route::group(['middleware' => ['auth', "permissions"]], function (){
-        Route::get('/success', 'PaymentController@paid')->name('success');
+        Route::get('/payment-success', 'PaymentController@paid')->name('payment-success');
         Route::get('/payment-error', 'PaymentController@notPaid')->name('payment-error');
         Route::get('/', 'OrderController@index')->name('index');
         Route::post('/', 'OrderController@store')->name('store');
