@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6" align="center">
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -42,5 +42,12 @@
                 </tbody>
             </table>
         </div>
+    </div>
+    <div class="row">
+        <form action="{{route('orders.delete', ['id' => $order->id])}}" method="POST">
+            @method('DELETE')
+            @csrf
+            <input type="submit" class="btn btn-danger" name="submit">
+        </form>
     </div>
 @endsection

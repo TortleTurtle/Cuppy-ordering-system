@@ -27,8 +27,8 @@
                         <td scope="col">{{$order->ordered_at}}</td>
                         <td scope="col">{{$order->delivered_at}}</td>
                         <td scope="col">{{$order->status}}</td>
-                        <td scope="col"><a class="btn btn-secondary" href="orders/{{$order->id}}">Details</a></td>
-                        <td scope="col"><a class="btn btn-primary" href="orders/edit/{{$order->id}}">Edit</a></td>
+                        <td scope="col"><a class="btn btn-secondary" href="{{route('orders.show', ['id' => $order->id])}}">Details</a></td>
+                        <td scope="col"><a class="btn btn-primary" href="{{route('orders.edit', ['id' => $order->id])}}">Edit</a></td>
                     </tr>
                 @endforeach
                 </tbody>

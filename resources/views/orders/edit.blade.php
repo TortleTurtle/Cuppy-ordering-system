@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <section class="col-md-8 mx-auto">
-        <form action="/orders/{{$order->id}}" method="POST">
+        <form action="{{route('orders.update', ['id' => $id])}}" method="POST">
             @method("PUT")
             @csrf
             <div class="form-group" align="center">
@@ -35,7 +35,7 @@
                 <label for="cup_id">Cup ID</label>
                 <input class="form-control" type="number" name="cup_id" value="{{$order->cup_id}}"><br>
                 <label for="owner">Owner</label>
-                <input class="form-control" type="number" name="owner" value="{{$order->owner}}"><br>
+                <input class="form-control" type="number" name="user_id" value="{{$order->user_id}}"><br>
                 <label for="status">Order status:</label>
                 <input class="form-control" type="text" name="status" value="{{$order->status}}">
             </div>
