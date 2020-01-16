@@ -1,8 +1,21 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
+@import "node_modules/font-awesome/scss/font-awesome.scss";
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
 
 // Variables
 @import 'variables';
 
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+//main scss
+@import 'main';
+
+//main scss
+@import 'previeuw';
+
+@import 'homepage';
+
+
+
+

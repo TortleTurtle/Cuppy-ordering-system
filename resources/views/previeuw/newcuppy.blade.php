@@ -1,175 +1,63 @@
-<!DOCTYPE html>
+@extends('layouts.app');
 
-<html>
+@section('menubuttons')
+            <a href="/" class="btn navbar-button-back home"></a>
+            <a href="/" class="btn navbar-button-back ">Selecteer beker</a>
+            <button type="submit" class="btn">Uploud ontwerp</button>
+@endsection
 
-<head>
-        <script src="https://unpkg.com/konva@4.0.18/konva.min.js"></script>
-    <title>cuppy</title>
+@section('content')
+    <div class="container">
+        <div class="panel panel-primary">
+                <div class="panel-body">
 
-    <style>
-        .cuppyplaceholder{
-            height: 800px;
-            position: absolute;
-            z-index: 1
-        }
+                    @if ($message = Session::get('success'))
 
-        .cuppyprint{
-            top: 300px;
-            left: 40px;
-            max-height: 700px;
-            max-width: 230px;
-            position: absolute;
-            z-index: 2;
-            filter: invert(100%);
-        }
+                    <div class="alert alert-success alert-block">
+                            <strong>{{ $message }}</strong>
+                    </div>
 
-    </style>
-
-</head>
+                    <img class="cuppyprint" src="images/uploads/{{ Session::get('image') }}">
+                    <img class="cuppyplaceholder" src="images/system/cuppyblack.png">
 
 
-
-<body>
-
-<div class="container">
-
-    @if($errors->any())
-<div id="error-box">
-    <!-- Display errors here -->
-</div>
-@endif
-
-    <div class="panel panel-primary">
-
-      <div class="panel-heading"><h2>Cuppy lazer cut converter</h2></div>
-
-      <div class="panel-body">
+                    @php $userimg = "images" . Session::get('image') @endphp
+                        <div id="container"></div>
+                        <div class="button-box">
+                            <a href="../orders/graveren" class="btnhome"> ontwerp goedkeuren</a> <br> <a href="../newcuppy" class="btnhome navbar-button-back"> ander ontwerp uplouden</a>
+                        </div>
+                    @endif
 
 
+                    @if (count($errors) > 0)
+                        <div class="alert alert-danger">
+                            <strong>Whoops!</strong> There were some problems with your input.
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
 
-        @if ($message = Session::get('success'))
+                    @if (!$message = Session::get('success'))
+                    <div class="alert alert-info">
+                        <strong>Uploud je ontwerp</strong> deze wordt omgezet in zwart wit. <br> Het witte gedeelde wordt van de beker afgehaald met een laser.
+                    </div>
 
-        <div class="alert alert-success alert-block">
+                    <form action="/newcuppy" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input onchange="this.form.submit()" type="file" name="image" class="form-control btn">
+                            </div>
+                        </div>
+                    </form>
 
-            <button type="button" class="close" data-dismiss="alert">×</button>
+                    @endif
 
-                <strong>{{ $message }}</strong>
-
+                </div>
+            </div>
         </div>
-        <img class="cuppyprint" src="images/{{ Session::get('image') }}">
-        <img class="cuppyplaceholder" src="images/system/cupyplaceholder.png">
-
-        <h1>Click Image then Drag</h1>
-
-
-        @php $userimg = "images" . Session::get('image') @endphp
-
-        <div id="container"></div>
-
-        <script>
-            var width = window.innerWidth;
-            var height = window.innerHeight;
-
-            function drawImage(imageObj) {
-            var stage = new Konva.Stage({
-                container: 'container',
-                width: width,
-                height: height
-            });
-
-            var layer = new Konva.Layer();
-            // darth vader
-            var darthVaderImg = new Konva.Image({
-                image: imageObj,
-                x: stage.width() / 2 - 200 / 2,
-                y: stage.height() / 2 - 137 / 2,
-                width: 200,
-                height: 137,
-                draggable: true
-            });
-
-            // add cursor styling
-            darthVaderImg.on('mouseover', function() {
-                document.body.style.cursor = 'pointer';
-            });
-            darthVaderImg.on('mouseout', function() {
-                document.body.style.cursor = 'default';
-            });
-
-            layer.add(darthVaderImg);
-            stage.add(layer);
-            }
-            var imageObj = new Image();
-            imageObj.onload = function() {
-            drawImage(this);
-            };
-            imageObj.src = 'images/{!! json_encode($userimg) !!}';
-        </script>
-
-        @endif
-
-
-
-        @if (count($errors) > 0)
-
-            <div class="alert alert-danger">
-
-                <strong>Whoops!</strong> There were some problems with your input.
-
-                <ul>
-
-                    @foreach ($errors->all() as $error)
-
-                        <li>{{ $error }}</li>
-
-                    @endforeach
-
-                </ul>
-
-            </div>
-
-        @endif
-
-
-
-        <form action="/newcuppy" method="POST" enctype="multipart/form-data">
-
-            @csrf
-
-            <div class="row">
-
-
-
-                <div class="col-md-6">
-
-                    <input type="file" name="image" class="form-control">
-
-                </div>
-
-
-
-                <div class="col-md-6">
-
-                    <button type="submit" class="btn btn-success">Upload</button>
-
-                </div>
-
-
-
-            </div>
-
-        </form>
-
-
-
-      </div>
-
     </div>
-
-</div>
-
-</body>
-
-
-
-</html>
+@endsection

@@ -1,12 +1,35 @@
+//load assets
+$assetPath : "images/system";
+@function get-path-to-assets($assetPath){
+  @return $assetPath;
+}
+
+$path: get-path-to-assets("images/system");
+
 // Body
 $body-bg: #f8fafc;
+$bodyBgImg: url(#{$path}/bg.png) no-repeat center center fixed;
 
 // Typography
 $font-family-sans-serif: 'Nunito', sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 
+//borders
+$border-radius: 2pt;
+
 // Colors
+$mainBtnCl: #71AC23;
+$secondBtnCl: #634832;
+$textBtnCl: #ECE0D1;
+
+$mainCl: #71AC23;
+$secondCl: #634832;
+$textCl: #ECE0D1;
+
+$mainBcCl: #967259;
+$secondBcCl: #ECE0D1;
+
 $blue: #3490dc;
 $indigo: #6574cd;
 $purple: #9561e2;

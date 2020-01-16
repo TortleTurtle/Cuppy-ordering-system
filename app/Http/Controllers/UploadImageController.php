@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Image;
 use Illuminate\Http\Request;
+use Image;
 
 class UploadImageController extends Controller
 {
@@ -37,112 +37,69 @@ class UploadImageController extends Controller
 
     public function store(Request $request)
     {
-            request()->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:14048',
+
+        request()->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:34048',
         ]);
 
+        //move image to public map
         $imageName = time().'.'.request()->image->getClientOriginalExtension();
-        request()->image->move(public_path('images'), $imageName);
+        request()->image->move(public_path('images/uploads'), $imageName);
 
-        $pad = public_path('images');
+        //get image location for filter
+        $pad = public_path('images/uploads');
         $imgpad = "$pad". "/" . "$imageName";
-        $filetype = pathinfo($imgpad, PATHINFO_EXTENSION);
+        $withoutExt = preg_replace('/\\.[^.\\s]{3,4}$/', '', $imageName);
 
-        // $test = new Image();
-        $this->convertImageBlackAndWhite($imgpad, $filetype, $imageName);
+        //filter image
+        $img = Image::make(file_get_contents($imgpad));
+        unlink($imgpad);
+        // $img->greyscale();
+        // $img->contrast(50);
+        // $img->resize(300, 200);
+        // $img->invert();
+        // $img->sharpen(50);
 
+        $img->greyscale(); // greyscale the signature image
+        $img->contrast(60); // increase the contrast to reach pure black and white
+        // $img->invert(); // invert it to use as a mask
 
-        if ($filetype == 'gif' ){
-            $imageName = preg_replace('/\\.[^.\\s]{3,4}$/', '', $imageName);
-            $imageName = "$imageName.png";
-        }
+        // rotate call
+        // $h = $img->height();
+        // $w = $img->width();
+        // $margin = $w / $h;
+        // if($margin > 1.4){
+        //     $img->rotate(-90);
+        // }
 
-        return back()
-        ->with('success','You have successfully uploaded your design .')
-        ->with('image', $imageName);
-    }
+        // save image
+        $imageName = "$withoutExt.jpg";
+        $newpad = "$pad/$withoutExt.jpg";
+        $img->save($newpad);
 
-    public function convertImageBlackAndWhite($orginImg, $filetype, $imageName) {
-        if ($filetype == 'gif' || $filetype == 'jpg' || $filetype == 'png' || $filetype == 'jpeg'){
-                if ($filetype == 'gif' ){
-                    $orginImgwithoutGif = preg_replace('/\\.[^.\\s]{3,4}$/', '', $orginImg);
-                    imagepng(imagecreatefromstring(file_get_contents($orginImg)), "$orginImgwithoutGif.png");
-                    $orgingif = imagecreatefromstring(file_get_contents($orginImg));
-                    imagedestroy($orgingif);
-                    $orginImg = "$orginImgwithoutGif.png";
-                }
-            $img = imagecreatefromstring(file_get_contents($orginImg));
-            imagefilter($img, IMG_FILTER_GRAYSCALE); //first, convert to grayscale
-            imagefilter($img, IMG_FILTER_CONTRAST, -255); //then, apply a full contrast
-            imagefilter($img, IMG_FILTER_NEGATE);
-            imagepng( $img, $orginImg);
-
-            $this->removebackground($img, $orginImg);
-
-        } else if ($filetype == 'svg') {
-            return back()->withErrors(["svg file $orginImg" , 'cant be converted']);
-        } else {
-            return back()->withErrors(["file $orginImg" , 'cant be converted']);
-        }
-    }
-
-    public function removebackground($img, $orginImg){
-        $img = imagecreatefromstring(file_get_contents($orginImg));
+        //remove background
+        $img = imagecreatefromstring(file_get_contents($newpad));
         $white = imagecolorallocate($img, 255, 255, 255);
         imagecolortransparent($img, $white);
-        imagepng( $img, "$orginImg");
+        imagepng( $img, "$newpad");
 
+        // $img = imagecreatefromstring(file_get_contents($newpad));
+        // $white = imagecolorallocate($img, 254, 254, 254);
+        // imagecolortransparent($img, $white);
+        // imagepng( $img, "$newpad");
+
+        // $white = imagecolorallocate($img, 254, 254, 254);
+        // imagecolortransparent($img, $white);
+        // $white = imagecolorallocate($img, 253, 253, 253);
+        // imagecolortransparent($img, $white);
+        // $white = imagecolorallocate($img, 252, 252, 252);
+        // imagecolortransparent($img, $white);
+        session_start();
+        session()->put('engraving', $imageName);
+
+
+        return back()
+        ->with('success','Uploud geslaagd.')
+        ->with('image', $imageName);
     }
-
-
-
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Image  $image
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Image $image)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Image  $image
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Image $image)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Image  $image
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Image $image)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Image  $image
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Image $image)
-    {
-        //
-    }
-
-
 }
-
-

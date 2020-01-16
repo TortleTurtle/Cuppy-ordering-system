@@ -1,5 +1,12 @@
 @extends('layouts.app')
 
+@section('menubuttons')
+            <a href="/" class="btn navbar-button-back home"></a>
+            <a href="../orders/new" class="btn navbar-button-back ">Selecteer beker</a>
+            <a href="../newcuppy" class="btn navbar-button-back ">uploud ontwerp</a>
+            <a  type="submit" class="btn">Accessoires</a>
+@endsection
+
 @section('content')
     <div class="container">
         <section class="col-md-8 mx-auto">
@@ -11,17 +18,6 @@
                         <option value="1">Ja</option>
                         <option value="0">Nee</option>
                     </select>
-                    <label for="engraving">Wil je je Cuppler graveren</label>
-                    <select class="form-control" name="engraving">
-                            <option value="1">Ja</option>
-                            <option value="0">Nee</option>
-                    </select>
-                </div>
-                <div class="form-group" align="center">
-                    <label for="front_img">Welk plaatje wil je op de voorkant?</label>
-                    <input class="from-control" type="text" name="front_img"><br>
-                    <label for="back_img">Welk plaatje wil je op de achterkant?</label>
-                    <input class="from-control" type="text" name="back_img">
                 </div>
                 <div class="form-group" align="center">
                 <label for="location">Waar wil je je Cuppler ophalen?</label>
