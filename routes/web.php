@@ -24,6 +24,10 @@ Route::get('/', function () {
     return view('homepage');
 });
 
+Route::get('/imgtest', function () {
+    return view('previeuw.testnewcuppy');
+});
+
 Route::group(['prefix' => 'orders', 'as' => 'orders.'], function (){
     Route::group(['middleware' => ['auth', "permissions"]], function (){
         Route::get('/payment-success', 'PaymentController@paid')->name('payment-success');
@@ -53,6 +57,7 @@ Route::group(['prefix' => 'users', 'as' => 'users.'], function (){
 });
 
 Route::resource('newcuppy', 'UploadImageController');
+Route::Post('/uploudedit', 'UploadImageController@uploudedit');
 
 // test image converter
 Route::get('/img', function()

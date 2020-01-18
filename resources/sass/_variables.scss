@@ -1,14 +1,13 @@
-// assets
-$assetPath : "images/system";
-@function get-path-to-assets($assetPath){
-  @return $assetPath;
-}
+// // assets
+// $assetPath : "images/system";
+// @function get-path-to-assets($assetPath){
+//   @return $assetPath;
+// }
 
-$path: get-path-to-assets("images/system");
+// $path: get-path-to-assets("images/system");
 
-// Body
+// // Body
 $body-bg: #f8fafc;
-$bodyBgImg: url(../images/bg.png) no-repeat center center fixed;
 
 // Typography
 $font-family-sans-serif: 'Nunito', sans-serif;

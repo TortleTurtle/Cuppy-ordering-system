@@ -20,6 +20,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
+
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light shadow-sm">
             <div class="container">
@@ -72,9 +73,20 @@
         </nav>
 
         <main class="py-4">
+
             @yield('content')
         </main>
+
     </div>
+
+    @yield('konva')
     {{-- @extends('layouts.footer') --}}
+
+
 </body>
+
 </html>
+
+
+
+

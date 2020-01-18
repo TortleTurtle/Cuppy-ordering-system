@@ -1,3 +1,12 @@
+.cuppypreviewbox{
+    height: 630px;
+    width: 380px;
+    background-color: $secondBcCl;
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .cuppyplaceholder{
     height: 65vh;
     // position: absolute;
@@ -5,6 +14,7 @@
     margin-right: auto;
     margin-left: auto;
 }
+
 
 .cuppyprint{
     top: 200px;
@@ -50,4 +60,8 @@
     justify-content: space-around;
     background-color: $mainBcCl;
     padding: 10px;
+    max-width: 380PX;
+    margin-left: AUTO;
+    margin-right: AUTO;
 }
+

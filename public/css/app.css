@@ -14417,7 +14417,15 @@ a.text-dark:focus {
   font-size: 16px !important;
   color: #ECE0D1 !important;
   text-decoration: none !important;
+  cursor: pointer;
+  -webkit-transition: 0.3s !important;
+  transition: 0.3s !important;
   box-shadow: 0px 3px 6px 0px #e0e0e0;
+}
+
+.btn:hover {
+  background-color: #81c628 !important;
+  color: #634832 !important;
 }
 
 .btnhome {
@@ -14428,6 +14436,14 @@ a.text-dark:focus {
   font-size: 16px !important;
   color: #ECE0D1 !important;
   text-decoration: none !important;
+  cursor: pointer;
+  -webkit-transition: 0.3s !important;
+  transition: 0.3s !important;
+}
+
+.btnhome:hover {
+  background-color: #81c628 !important;
+  color: #634832 !important;
 }
 
 .btn-large {
@@ -14438,6 +14454,14 @@ a.text-dark:focus {
   font-size: 22px !important;
   color: #ECE0D1 !important;
   text-decoration: none !important;
+  cursor: pointer;
+  -webkit-transition: 0.3s !important;
+  transition: 0.3s !important;
+}
+
+.btn-large:hover {
+  background-color: #81c628 !important;
+  color: #634832 !important;
 }
 
 .timiser {
@@ -14445,7 +14469,7 @@ a.text-dark:focus {
 }
 
 body {
-  background: url(/images/bg.png?9a15f6352bca999af86ff75e26b66daf) no-repeat center center fixed !important;
+  background: url(/images/bg.png?f066acc3a27f9c95b427b5ffc0a58a17);
   background-size: cover;
 }
 
@@ -14461,6 +14485,15 @@ footer {
 
 .tabel {
   background-color: #ECE0D1 !important;
+}
+
+.cuppypreviewbox {
+  height: 630px;
+  width: 380px;
+  background-color: #ECE0D1;
+  overflow: hidden;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .cuppyplaceholder {
@@ -14519,6 +14552,9 @@ footer {
   justify-content: space-around;
   background-color: #967259;
   padding: 10px;
+  max-width: 380PX;
+  margin-left: AUTO;
+  margin-right: AUTO;
 }
 
 header {
@@ -14547,7 +14583,7 @@ header {
   width: 90%;
   height: 50vh;
   max-width: 400px;
-  background: url(/images/cuppyhome.png?a505b6f3f607a3d66494eb92b7c81a76);
+  background: url(/images/cuppyhome.png?b89380d30dac80694131c74a081d89a0);
   background-repeat: no-repeat;
   background-size: contain, cover;
   background-position: bottom, center;

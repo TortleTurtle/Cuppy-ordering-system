@@ -21,7 +21,12 @@
 	font-size:$font-size!important;
     color:$font-color!important;
     text-decoration: none!important;
-
+    cursor: pointer;
+    transition: 0.3s!important;
+    &:hover {
+        background-color: #81c628!important;
+        color: $secondBtnCl!important;
+      }
 }
 
 .btn {
@@ -30,7 +35,7 @@
 }
 
 .btnhome{
-    @include button;
+    @include button
 }
 
 .btn-large {
@@ -42,7 +47,7 @@
 }
 
 body{
-    background: $bodyBgImg!important;
+    background: url(../images/system/bg.png);
     background-size: cover;
 }
 
